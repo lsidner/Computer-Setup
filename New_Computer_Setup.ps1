@@ -37,7 +37,8 @@ Add-Computer -DomainName $DomainName -Credential (Get-Credential)
 Write-Host "Computer renamed to $NewComputerName and joined to domain corp.contoso.com. A restart is required." -ForegroundColor Green
 
 #Add LocalPCAdmins group to local Administrators group (uncomment and modify as needed)
-Add-LocalGroupMember -Group "Administrators" -Member "SIMPLAY3\LocalPCAdmins"
+$DomainGroup = Read-Host "`nEnter the domain group to add to local Administrators (e.g. CONTOSO\Admins)"
+Add-LocalGroupMember -Group "Administrators" -Member $DomainGroup
 Write-Host "Added LocalPCAdmins to local Administrators group." -ForegroundColor Green
 
 # List of applications to install (via Chocolatey)
@@ -65,7 +66,7 @@ foreach ($app in $apps) {
 }
 
 # Remove bloatware (uncomment and modify as needed)
-
+# Refer to bloatware_removal.ps1 for a comprehensive list
 
 #Remove chocolatey afterwards (optional)
 # choco uninstall chocolatey -y
@@ -93,4 +94,6 @@ Write-Host "Installed Applications:" -ForegroundColor Yellow
 $apps | ForEach-Object { Write-Host "- $_" -ForegroundColor Green }
 Write-Host "System settings configured." -ForegroundColor Green
 Write-Host "`nSetup complete! Please restart your computer to apply all changes." -ForegroundColor Green
+
+# Wait for user input before closing
 Read-Host -Prompt "Press Enter to exit"
