@@ -72,14 +72,9 @@ Note: Both scripts attempt to self-elevate when not run as Administrator. Still,
 
 These scripts are provided as examples and are intended for use by system administrators. Use at your own risk. The author(s) are not responsible for data loss or system misconfiguration caused by these scripts.
 
-If you want, I can:
-- Add a command-line parameter interface (so you can run non-interactively).
-- Add a dry-run mode to the removal script to list what would be removed without making changes.
-- Add logging and an uninstall/rollback plan.
-
 ## License
 
-No license specified. If you want to publish these scripts for reuse, consider adding an open source license (for example, MIT) to the repository.
+No license specified.
 
 ---
 
