@@ -20,34 +20,42 @@ Write-Output "Starting bloatware removal script..." -ForegroundColor Green
 
 # List of bloatware apps to remove
 $bloatware = @(
-    "Microsoft.Clipchamp",
-    "Microsoft.GetHelp",
-    "Microsoft.Getstarted",
-    "Microsoft.SolitaireCollection",
-    "Microsoft.OutlookForWindows",
-    "Microsoft.FeedbackHub",
-    "Microsoft.Xbox*",
-    "MSTeams",
-    "Microsoft.PowerAutomateDesktop",
     "Clipchamp.Clipchamp",
     "Microsoft.Advertising.Xaml",
     "Microsoft.BingNews",
     "Microsoft.BingSearch",
-    "Microsoft.Todos"
+    "Microsoft.BingWeather",
+    "Microsoft.Clipchamp",
+    "Microsoft.GamingApp",
+    "Microsoft.GetHelp",
+    "Microsoft.Getstarted",
+    "Microsoft.MicrosoftSolitaireCollection",
+    "Microsoft.OutlookForWindows",
+    "Microsoft.PowerAutomateDesktop",
+    "Microsoft.StartExperiencesApp",
+    "Microsoft.Todos",
+    "Microsoft.Windows.DevHome",
+    "Microsoft.WindowsAlarms",
+    "Microsoft.WindowsFeedbackHub",
+    "Microsoft.WindowsSoundRecorder",
+    "Microsoft.XbixGamingOverlay",
+    "Microsoft.Xbox.TCUI",
+    "Microsoft.XboxIdentityProvider",
+    "Microsoft.XboxSpeechToTextOverlay",
+    "Microsoft.YourPhone",
+    "Microsoft.ZuneMusic",
+    "MSTeams"
 )
 
 # Remove bloatware apps
 Write-Output "Removing bloatware applications..."
 foreach ($app in $bloatware) {
-    Get-AppxPackage -Name $app | Remove-AppxPackage
-    Get-AppxProvisionedPackage -Online | Where-Object DisplayName -EQ $app | Remove-AppxProvisionedPackage -Online
-    #show message for each app removed or not found
-    if ($?) {
-        Write-Output "Removed $app"
-    } else {
-        Write-Output "$app not found or could not be removed"
-    }
+    write-Output "Attempting to remove $app..."
+    Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -ErrorAction SilentlyContinue
+    Get-AppxProvisionedPackage -Online | Where-Object DisplayName -EQ $app | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
 }
+
+Write-Output "Bloatware removal process completed."
 
 #Remove OneDrive if installed
 Write-Output "Checking for OneDrive installation..."
