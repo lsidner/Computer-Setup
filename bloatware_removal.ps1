@@ -26,7 +26,14 @@ $bloatware = @(
     "Microsoft.SolitaireCollection",
     "Microsoft.OutlookForWindows",
     "Microsoft.FeedbackHub",
-    "Microsoft.Xbox*"
+    "Microsoft.Xbox*",
+    "MSTeams",
+    "Microsoft.PowerAutomateDesktop",
+    "Clipchamp.Clipchamp",
+    "Microsoft.Advertising.Xaml",
+    "Microsoft.BingNews",
+    "Microsoft.BingSearch",
+    "Microsoft.Todos"
 )
 
 # Remove bloatware apps
