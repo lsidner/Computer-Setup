@@ -58,15 +58,18 @@ foreach ($app in $bloatware) {
 Write-Output "Bloatware removal process completed."
 
 #Remove OneDrive if installed
-Write-Output "Checking for OneDrive installation..."
-$oneDrivePath = "$env:SystemRoot\SysWOW64\OneDriveSetup.exe"
-if (Test-Path $oneDrivePath) {
-    Write-Output "OneDrive found. Uninstalling..."
-    Start-Process $oneDrivePath "/uninstall" -NoNewWindow -Wait
-    Write-Output "OneDrive uninstalled."
-} else {
-    Write-Output "OneDrive not found."
-}
+#Stop OneDrive process if running
+Stop-Process -Name OneDrive -ErrorAction SilentlyContinue -Force
+
+#Test for OneDrive and uninstall if found
+if (Test-Path "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
+    Start-Process -FilePath "$env:SystemRoot\SysWOW64\OneDriveSetup.exe" -ArgumentList "/uninstall" -NoNewWindow -Wait
+    } 
+elseif (Test-Path "$env:SystemRoot\System32\OneDriveSetup.exe") {
+    Start-Process -FilePath "$env:SystemRoot\System32\OneDriveSetup.exe" -ArgumentList "/uninstall" -NoNewWindow -Wait
+    }
+
+Write-Output "OneDrive removal process completed."
 
 # Final message
 Write-Output "Bloatware removal complete."
