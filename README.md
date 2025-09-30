@@ -40,7 +40,7 @@ Note: Both scripts attempt to self-elevate when not run as Administrator. Still,
 `bloatware_removal.ps1`:
 - Contains a list of Appx packages to remove (examples: Clipchamp, GetHelp, Xbox components, Solitaire, Feedback Hub).
 - Calls `Get-AppxPackage` and `Remove-AppxPackage` to remove the packages for the current user and `Get-AppxProvisionedPackage` / `Remove-AppxProvisionedPackage -Online` to remove provisioned packages.
-- Checks for OneDrive at `%SystemRoot%\SysWOW64\OneDriveSetup.exe` and will run the uninstall switch if present.
+- Checks for OneDrive at `%SystemRoot%\SysWOW64\OneDriveSetup.exe`, `%SystemRoot%\System32\OneDriveSetup.exe`, and will run the uninstall switch if present.
 
 `New_Computer_Setup.ps1`:
 - Prompts for a new computer name and a domain to join. Calls `Rename-Computer` and `Add-Computer` (will prompt for credentials and may require a restart).
