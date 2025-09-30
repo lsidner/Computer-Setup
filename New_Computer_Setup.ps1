@@ -103,19 +103,23 @@ Example: Enable dark mode for system
 Changes registry settings to enable dark mode
 Note: This affects system theme; individual apps may have separate settings.
 #>
+Write-Host "Enabling dark mode..." -ForegroundColor Yellow
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
 
 # Example: Set time zone (EST)
+Write-Host "Setting time zone to Eastern Standard Time..." -ForegroundColor Yellow
 tzutil /s "Eastern Standard Time"  # Change as needed
 
 # Example: Disable unnecessary startup programs (modify as needed)
+Write-Host "Disabling unnecessary startup programs..." -ForegroundColor Yellow
 processes = @("msedge.exe", "terminal.exe")  # Add more process names as needed
 foreach ($process in $processes) {
      Get-CimInstance -ClassName Win32_StartupCommand | Where-Object { $_.Name -like "*$process*" } | Remove-CimInstance
 }
 
 # Example: Set Chrome as default browser (from chocolatey install)
+Write-Host "Setting Google Chrome as the default browser..." -ForegroundColor Yellow
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice" -Name "ProgId" -Value "ChromeHTML"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice" -Name "ProgId" -Value "ChromeHTML"
 
