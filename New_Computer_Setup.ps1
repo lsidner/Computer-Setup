@@ -85,7 +85,11 @@ powercfg -h off
 # Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $WallpaperPath
 # RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
-# Example: Set time zone
+# Example: Enable dark mode for system (uncomment if desired)
+# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
+# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
+
+# Example: Set time zone (EST)
 tzutil /s "Eastern Standard Time"  # Change as needed
 
 # Summary of actions taken
