@@ -78,4 +78,8 @@ No license specified.
 
 ---
 
-Last updated: 2025-09-26
+<!--
+Last updated: Automatically updated on save using a pre-commit or save hook.
+Do not edit this line manually.
+-->
+Last updated: <!--LAST_UPDATED-->2025-09-26<!--/LAST_UPDATED-->
