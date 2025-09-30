@@ -6,6 +6,18 @@
     This script installs common applications, configures system settings, and applies user preferences.
     It prompts for user input where necessary and provides a summary of actions taken.
     Ensure to run this script with administrative privileges.
+
+.PARAMETER NewComputerName
+    The new name for the computer.
+
+.PARAMETER DomainName
+    The domain to join the computer to.
+
+.PARAMETER DomainGroup
+    The domain group to add to the local Administrators group.
+
+.EXAMPLE
+    .\New_Computer_Setup.ps1
 #>
 
 # Self-elevate if not running as admin
@@ -34,7 +46,7 @@ Rename-Computer -NewName $NewComputerName
 
 Add-Computer -DomainName $DomainName -Credential (Get-Credential)
 
-Write-Host "Computer renamed to $NewComputerName and joined to domain corp.contoso.com. A restart is required." -ForegroundColor Green
+Write-Host "Computer renamed to $NewComputerName and joined to domain $DomainName. A restart is required." -ForegroundColor Green
 
 #Add LocalPCAdmins group to local Administrators group (uncomment and modify as needed)
 $DomainGroup = Read-Host "`nEnter the domain group to add to local Administrators (e.g. CONTOSO\Admins)"
