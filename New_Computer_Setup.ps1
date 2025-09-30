@@ -28,7 +28,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 Write-Host "Starting new computer setup script..." -ForegroundColor Green
 
-#Change computer name and join domain (modify as needed)
+# Change computer name and join domain (modify as needed)
 Read-Host "`nNote: Changing the computer name and joining a domain requires a restart. Please save your work."
 $NewComputerName = Read-Host "`nEnter a new computer name (e.g. Workstation01)"
 if ([string]::IsNullOrWhiteSpace($NewComputerName)) {
@@ -79,7 +79,7 @@ foreach ($app in $apps) {
     choco install $app -y
 }
 
-#Remove chocolatey afterwards if no longer needed (optional)
+# Remove chocolatey afterwards if no longer needed (optional)
 # choco uninstall chocolatey -y
 
 # Configure system settings
@@ -91,10 +91,12 @@ powercfg -setactive SCHEME_MIN  # High Performance
 # Example: Disable hibernation
 powercfg -h off
 
+<# 
 # Example: Set desktop background (uncomment and specify path)
-# $WallpaperPath = "C:\Path\To\Your\Wallpaper.jpg"
-# Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $WallpaperPath
-# RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+$WallpaperPath = "C:\Path\To\Your\Wallpaper.jpg"
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $WallpaperPath
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+#>
 
 <#
 Example: Enable dark mode for system
