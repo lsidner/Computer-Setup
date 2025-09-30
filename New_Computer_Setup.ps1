@@ -28,7 +28,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 Write-Host "Starting new computer setup script..." -ForegroundColor Green
 
-#Change computer name and join domain (uncomment and modify as needed)
+#Change computer name and join domain (modify as needed)
 Read-Host "`nNote: Changing the computer name and joining a domain requires a restart. Please save your work."
 $NewComputerName = Read-Host "`nEnter a new computer name (e.g. Workstation01)"
 if ([string]::IsNullOrWhiteSpace($NewComputerName)) {
@@ -48,13 +48,15 @@ Add-Computer -DomainName $DomainName -Credential (Get-Credential)
 
 Write-Host "Computer renamed to $NewComputerName and joined to domain $DomainName. A restart is required." -ForegroundColor Green
 
-#Add LocalPCAdmins group to local Administrators group (uncomment and modify as needed)
+# Configure domain group to local Administrators group (uncomment and modify as needed)
 $DomainGroup = Read-Host "`nEnter the domain group to add to local Administrators (e.g. CONTOSO\Admins)"
 Add-LocalGroupMember -Group "Administrators" -Member $DomainGroup
-Write-Host "Added LocalPCAdmins to local Administrators group." -ForegroundColor Green
+Write-Host "Added $DomainGroup to local Administrators group." -ForegroundColor Green
 
-# List of applications to install (via Chocolatey)
-# Modify this list to include/exclude applications as needed
+<#
+List of applications to install (via Chocolatey)
+Modify this list to include/exclude applications as needed.
+#>
 $apps = @(
     "googlechrome",
     "keepass",
@@ -77,10 +79,7 @@ foreach ($app in $apps) {
     choco install $app -y
 }
 
-# Remove bloatware (uncomment and modify as needed)
-# Refer to bloatware_removal.ps1 for a comprehensive list
-
-#Remove chocolatey afterwards (optional)
+#Remove chocolatey afterwards if no longer needed (optional)
 # choco uninstall chocolatey -y
 
 # Configure system settings
@@ -97,19 +96,36 @@ powercfg -h off
 # Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $WallpaperPath
 # RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
-# Example: Enable dark mode for system (uncomment if desired)
-# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
-# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
+<#
+Example: Enable dark mode for system
+Changes registry settings to enable dark mode
+Note: This affects system theme; individual apps may have separate settings.
+#>
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
 
 # Example: Set time zone (EST)
 tzutil /s "Eastern Standard Time"  # Change as needed
 
+# Example: Disable unnecessary startup programs (modify as needed)
+processes = @("msedge.exe", "terminal.exe")  # Add more process names as needed
+foreach ($process in $processes) {
+     Get-CimInstance -ClassName Win32_StartupCommand | Where-Object { $_.Name -like "*$process*" } | Remove-CimInstance
+}
+
+# Example: Set Chrome as default browser (from chocolatey install)
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice" -Name "ProgId" -Value "ChromeHTML"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice" -Name "ProgId" -Value "ChromeHTML"
+
+
 # Summary of actions taken
 Write-Host "`nSetup Summary:" -ForegroundColor Yellow
+Write-Host "Computer Name: $NewComputerName" -ForegroundColor Green
+Write-Host "Domain Joined: $DomainName" -ForegroundColor Green
 Write-Host "Installed Applications:" -ForegroundColor Yellow
 $apps | ForEach-Object { Write-Host "- $_" -ForegroundColor Green }
 Write-Host "System settings configured." -ForegroundColor Green
 Write-Host "`nSetup complete! Please restart your computer to apply all changes." -ForegroundColor Green
 
 # Wait for user input before closing
-Read-Host -Prompt "Press Enter to exit"
+Read-Host -Prompt "Press Enter to close this window"
