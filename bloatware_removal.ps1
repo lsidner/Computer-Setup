@@ -63,7 +63,11 @@ foreach ($app in $bloatware) {
 
 Write-Output "Bloatware removal process completed."
 
-#Remove OneDrive if installed
+<#
+These next lines will remove OneDrive, which is often considered bloatware on Windows systems.
+Note: Removing OneDrive may affect file synchronization for users who rely on it.
+#>
+
 #Stop OneDrive process if running
 Stop-Process -Name OneDrive -ErrorAction SilentlyContinue -Force
 
