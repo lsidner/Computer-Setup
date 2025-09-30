@@ -65,8 +65,8 @@ Note: Both scripts attempt to self-elevate when not run as Administrator. Still,
 ## Common troubleshooting
 
 - Chocolatey install fails: check network/proxy settings and ensure TLS 1.2 is available. The script enables TLS 1.2 when invoking the installer.
-- Appx packages not found: some packages are not installed for every image or may have different package names. Adjust the `$bloatware` array or run `Get-AppxPackage` to inspect installed packages.
-- OneDrive uninstall not found: the script looks for `%SystemRoot%\SysWOW64\OneDriveSetup.exe`; OneDrive may be located elsewhere or already removed.
+- Appx packages not found: some packages are not installed for every image or may have different package names. Adjust the `$bloatware` array or run `Get-AppxPackage -AllUsers` to inspect installed packages.
+- OneDrive uninstall not found: the script looks for `%SystemRoot%\SysWOW64\OneDriveSetup.exe` and `%SystemRoot%\System32\OneDriveSetup.exe`; OneDrive may be located elsewhere.
 
 ## Notes and disclaimers
 
