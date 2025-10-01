@@ -16,7 +16,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 # Start of the script
-Write-Output "Starting bloatware removal script..." -ForegroundColor Green
+Write-Output "Starting bloatware removal script..."
 
 # List of bloatware apps to remove
 $bloatware = @(
@@ -92,8 +92,28 @@ if (Test-Path "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
 elseif (Test-Path "$env:SystemRoot\System32\OneDriveSetup.exe") {
     Start-Process -FilePath "$env:SystemRoot\System32\OneDriveSetup.exe" -ArgumentList "/uninstall" -NoNewWindow -Wait
     }
+else {
+    Write-Output "OneDriveSetup.exe not found. OneDrive may not be installed."
+}
 
 Write-Output "OneDrive removal process completed."
+
+# OneDrive cleanup
+Write-Output "Cleaning up OneDrive remnants..."
+$OneDrivePaths = @(
+    "$env:UserProfile\OneDrive",
+    "$env:LocalAppData\Microsoft\OneDrive",
+    "$env:ProgramData\Microsoft OneDrive",
+    "$env:UserProfile\AppData\Local\Microsoft\OneDrive",
+    "$env:UserProfile\AppData\Roaming\Microsoft\OneDrive"
+)
+foreach ($path in $OneDrivePaths) {
+    if (Test-Path $path) {
+        Remove-Item -Path $path -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Output "Removed $path"
+    }
+}
+Write-Output "OneDrive cleanup completed."
 
 # Final message
 Write-Output "Bloatware removal complete."
