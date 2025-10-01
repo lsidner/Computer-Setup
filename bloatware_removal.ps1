@@ -22,6 +22,8 @@ Write-Output "Starting bloatware removal script..." -ForegroundColor Green
 $bloatware = @(
     "Clipchamp.Clipchamp",
     "Microsoft.3DViewer",
+    "Microsoft.Microsoft3DViewer", # 3D Viewer (alternate name)
+    "Microsoft.ScreenSketch", # Snip & Sketch (app name changed to Snipping Tool in later versions)
     "Microsoft.549981C3F5F10", # Cortana
     "Microsoft.Advertising.Xaml",
     "Microsoft.BingNews",
@@ -34,6 +36,7 @@ $bloatware = @(
     "Microsoft.MicrosoftOfficeHub",
     "Microsoft.MicrosoftSolitaireCollection",
     "Microsoft.MicrosoftStickyNotes",
+    "Microsoft.MinecraftEducationEdition",
     "Microsoft.MixedReality.Portal",
     "Microsoft.Office.OneNote",
     "Microsoft.OneConnect",
@@ -41,12 +44,13 @@ $bloatware = @(
     "Microsoft.People",
     "Microsoft.PowerAutomateDesktop",
     "Microsoft.SkypeApp",
-    "Microsoft.StartExperiencesApp",
+    "Microsoft.StartExperiencesApp", # News and Interests
     "Microsoft.Todos",
     "Microsoft.Wallet",
     "Microsoft.Whiteboard",
     "Microsoft.Windows.DevHome",
     "Microsoft.WindowsAlarms",
+    "microsoft.windowscommunicationsapps", # Mail and Calendar
     "Microsoft.WindowsFeedbackHub",
     "Microsoft.WindowsMaps",
     "Microsoft.WindowsSoundRecorder",
@@ -57,9 +61,10 @@ $bloatware = @(
     "Microsoft.XboxIdentityProvider",
     "Microsoft.XboxSpeechToTextOverlay",
     "Microsoft.YourPhone",
-    "Microsoft.ZuneMusic",
-    "Microsoft.ZuneVideo",
-    "MSTeams"
+    "Microsoft.ZuneMusic", # Movies & TV
+    "Microsoft.ZuneVideo", # Groove Music
+    "MicrosoftTeams", # Microsoft Teams (work or school version)
+    "MSTeams" # Microsoft Teams (personal version)
 )
 
 # Remove bloatware apps
