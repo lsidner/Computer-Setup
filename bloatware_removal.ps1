@@ -23,7 +23,6 @@ $bloatware = @(
     "Clipchamp.Clipchamp",
     "Microsoft.3DViewer",
     "Microsoft.Microsoft3DViewer", # 3D Viewer (alternate name)
-    "Microsoft.ScreenSketch", # Snip & Sketch (app name changed to Snipping Tool in later versions)
     "Microsoft.549981C3F5F10", # Cortana
     "Microsoft.Advertising.Xaml",
     "Microsoft.BingNews",
@@ -33,6 +32,7 @@ $bloatware = @(
     "Microsoft.GamingApp",
     "Microsoft.GetHelp",
     "Microsoft.Getstarted",
+    "Microsoft.MicrosoftJournal",
     "Microsoft.MicrosoftOfficeHub",
     "Microsoft.MicrosoftSolitaireCollection",
     "Microsoft.MicrosoftStickyNotes",
@@ -63,6 +63,8 @@ $bloatware = @(
     "Microsoft.YourPhone",
     "Microsoft.ZuneMusic", # Movies & TV
     "Microsoft.ZuneVideo", # Groove Music
+    "MicrosoftCorportationII.MicrosoftFamily",
+    "MicrosoftCorporationII.QuickAssist",
     "MicrosoftTeams", # Microsoft Teams (work or school version)
     "MSTeams" # Microsoft Teams (personal version)
 )
