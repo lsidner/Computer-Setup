@@ -77,9 +77,9 @@ These scripts are provided as examples and are intended for use by system admini
 No license specified.
 
 ---
-
 <!--
 Last updated: Automatically updated on save using a pre-commit or save hook.
 Do not edit this line manually.
 -->
-Last updated: <!--LAST_UPDATED-->2025-09-26<!--/LAST_UPDATED-->
+
+**Last Updated:** 2025-07 10:42 AM
