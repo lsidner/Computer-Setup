@@ -4,6 +4,13 @@
 .DESCRIPTION
     This script identifies and removes pre-installed applications that are often considered unnecessary.
     It requires administrative privileges to run and will prompt for elevation if not executed as an administrator.
+.EXAMPLE
+    .\bloatware_removal.ps1
+    Runs the script to remove bloatware applications from the current Windows installation.
+.NOTES
+    Run this script with caution. Removing certain applications may affect system functionality or user experience.
+    Always ensure you have backups of important data before running scripts that modify system settings or applications.
+    Tested on Windows 10 and Windows 11.
 #>
 
 #Elevate to run as administrator if not already
