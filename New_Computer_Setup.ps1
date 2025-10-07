@@ -1,23 +1,19 @@
 <#
 .SYNOPSIS
     This script automates the setup of a new computer with essential software and configurations.
-
 .DESCRIPTION
     This script installs common applications, configures system settings, and applies user preferences.
     It prompts for user input where necessary and provides a summary of actions taken.
     Ensure to run this script with administrative privileges.
-
 .PARAMETER NewComputerName
     The new name for the computer.
-
 .PARAMETER DomainName
     The domain to join the computer to.
-
 .PARAMETER DomainGroup
     The domain group to add to the local Administrators group.
-
 .EXAMPLE
     .\New_Computer_Setup.ps1
+    Runs the script to set up a new computer with essential software and configurations.
 #>
 
 # Self-elevate if not running as admin
@@ -42,11 +38,12 @@ if ([string]::IsNullOrWhiteSpace($DomainName)) {
     exit 1
 }
 
-Rename-Computer -NewName $NewComputerName
+# Rename computer and join domain (does not restart immediately)
+Rename-Computer -NewName $NewComputerName -Force -Restart:$false
 
 Add-Computer -DomainName $DomainName -Credential (Get-Credential)
 
-Write-Host "Computer renamed to $NewComputerName and joined to domain $DomainName. A restart is required." -ForegroundColor Green
+Write-Host "`nComputer renamed to $NewComputerName and joined to domain $DomainName. A restart is required." -ForegroundColor Green
 
 # Configure domain group to local Administrators group (uncomment and modify as needed)
 $DomainGroup = Read-Host "`nEnter the domain group to add to local Administrators (e.g. CONTOSO\Admins)"
@@ -123,7 +120,6 @@ Write-Host "Setting Google Chrome as the default browser..." -ForegroundColor Ye
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice" -Name "ProgId" -Value "ChromeHTML"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice" -Name "ProgId" -Value "ChromeHTML"
 
-
 # Summary of actions taken
 Write-Host "`nSetup Summary:" -ForegroundColor Yellow
 Write-Host "Computer Name: $NewComputerName" -ForegroundColor Green
@@ -134,4 +130,10 @@ Write-Host "System settings configured." -ForegroundColor Green
 Write-Host "`nSetup complete! Please restart your computer to apply all changes." -ForegroundColor Green
 
 # Wait for user input before closing
-Read-Host -Prompt "Press Enter to close this window"
+$restartComputer = Read-Host -Prompt "Press Enter to restart the computer now or close this window to restart later"
+if ($restartComputer -eq "") {
+    Restart-Computer
+} else {
+    Write-Host "You can restart the computer later to apply all changes." -ForegroundColor Yellow
+    exit 0
+}
