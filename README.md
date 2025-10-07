@@ -78,8 +78,8 @@ No license specified.
 
 ---
 <!--
-Last updated: Automatically updated on save using a pre-commit or save hook.
+Last updated: Automatically updated on save by Visual Studio Code using configured "Run on Save" or a save hook.
 Do not edit this line manually.
 -->
 
-**Last Updated:** 2025-07 10:42 AM
+**Last Updated:** {{LAST_UPDATED}}
