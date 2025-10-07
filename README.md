@@ -1,6 +1,6 @@
 ## Computer-Setup
 
-Collection of PowerShell scripts to automate initial setup of a new Windows computer and remove common pre-installed "bloatware" applications. These are example scripts intended for IT use and testing. Review and adapt them to your environment before running.
+Collection of PowerShell scripts to automate initial setup of a new Windows computer and remove common pre-installed "bloatware" applications. These are example scripts intended for IT use and testing. Review and adapt them to your environment before running. Each script can run independently of each other.
 
 ### Contents
 
